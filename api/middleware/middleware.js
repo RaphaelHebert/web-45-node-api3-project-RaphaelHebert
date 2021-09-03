@@ -6,34 +6,35 @@ function logger(req, res, next) {
 }
 
 function validateUserId(req, res, next) {
+  console.log('validating validateUserId...')
+
   const id = parseInt(req.params.id)
   if(!id){
     next({ message: "not found", status: 404 })
   }
   users.getById(id)
     .then(user => {
-      console.log("hello you")
       if(user){
         req.user = user
-        console.log(user)
         next()
       }else{
         next({ message: "user not found", status: 404 })
     }})
-    .catch(next({ message: "not found", status: 404 }))
+    .catch(next)
 }
      
 
 
 function validateUser(req, res, next) {
   if ( !req.body.name ){
-    next({ message: "missing required name field", status: 404 })
+    next({ message: "missing required name field", status: 400 })
   }else{
     next()
   }
 }
 
 function validatePost(req, res, next) {
+  console.log('validating post...')
   if(!req.body.text){
     next({ message: "missing required text field", status: 400 })
   }else{

@@ -27,6 +27,7 @@ function insert(post) {
 }
 
 function update(id, changes) {
+  console.log('updating posts....')
   return db('posts')
     .where({ id })
     .update(changes);
